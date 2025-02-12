@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class CounterScreen extends StatefulWidget {
-  const CounterScreen({super.key});
+class CounterFunctionScreen extends StatefulWidget {
+  const CounterFunctionScreen({super.key});
 
   @override
-  State<CounterScreen> createState() => _CounterScreenState();
+  State<CounterFunctionScreen> createState() => _CounterFunctionScreenState();
 }
 
-class _CounterScreenState extends State<CounterScreen> {
+class _CounterFunctionScreenState extends State<CounterFunctionScreen> {
   int clickCounter = 0;
   String texto = "";
 
@@ -21,8 +21,17 @@ class _CounterScreenState extends State<CounterScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('CONTADOR',
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.w400)),
+        title: Text('FUNCIONES DE CONTADOR',
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400)),
+        actions: [
+          IconButton(
+            onPressed: (){
+              setState(() {
+                clickCounter = 0;
+              });
+            }, 
+            icon: Icon(Icons.refresh_rounded))
+        ],
       ),
       body: Center(
         child: Column(
@@ -50,16 +59,37 @@ class _CounterScreenState extends State<CounterScreen> {
           SizedBox(
             height: 16,
           ),
-          FloatingActionButton(
-            onPressed: () {
-              setState(() {
-                clickCounter = 0;
-              });
-            },
-            child: Icon(Icons.exposure_zero),
+          CustomButton( icon: Icons.exposure_minus_1_outlined,
+          onPressed: (){
+            if (clickCounter == 0) return;
+            setState(() {
+              clickCounter --;
+            });
+          },
           )
         ],
       ),
+    );
+  }
+}
+
+class CustomButton extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback? onPressed;
+
+
+  const CustomButton({
+    super.key, 
+    required this.icon, 
+    this.onPressed,
+    
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: onPressed,
+      child: Icon(icon),
     );
   }
 }
