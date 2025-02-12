@@ -88,6 +88,7 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      backgroundColor: Colors.amber,
       onPressed: onPressed,
       child: Icon(icon),
     );
